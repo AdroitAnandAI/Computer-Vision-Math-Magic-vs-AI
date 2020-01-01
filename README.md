@@ -12,7 +12,7 @@ Lets see how to mathematically formulate inversion.
 2. Convolve with a Gaussian filter to smooth the noise.
 3. Calculate the fraction of peaks (lines) with sub-peaks on the right side.
 
-This will not work if the text is in CAPITAL letters or in some other language, as the "double peak logic" would likely falter.
+This will not work if the text is in CAPITAL letters or in some other language, as the "double peak logic" would likely falter.<br>
 Another numerical way to address the problem is to make use of the font shape, such as 'Water Fill Technique' or to mathematically represent the character shape, as given below. We can describe any shape mathematically using shape context and log-bin histograms. 
 
 **Method 2: Shape Contexts using Log-Bin Histograms**
@@ -53,10 +53,10 @@ Most of the scanned documents are skewed. Thus, it is required to de-skew the im
 2. Compute projection of all pixels on y-axis.
 3. Calculate the pixel incidence density.
 4. Step the rotation angle by 0.5 angles and repeat steps 2, 3
-5. Find the angle Θ with maximum pixel incidence density.
-The drawbacks of the above algorithm are:
+5. Find the angle Θ with maximum pixel incidence density.<br><br>
+The drawbacks of the above algorithm are:<br>
 <br> a. Iterative computation increases time complexity.
-<br> b. Potential error of 0.5 degrees due to step size.
+<br> b. Potential error of 0.5 degrees due to step size.<br>
 <br>Mostly, scanned document would be of form format or tabular data containing lines or point spread of lines (lines can be disjoint in scanned image, due to lack of scan or print quality). Hence, the question boils down to "whether we can compute the line and Θ, given a point spread as input?"
 
 **Method 2: Hough Transform Peak**
