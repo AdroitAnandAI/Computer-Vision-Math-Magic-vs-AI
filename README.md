@@ -22,8 +22,10 @@ Another numerical way to address the problem is to make use of the font shape, s
 4. Randomly sample N points from edge elements of each character shape.
 5. Construct a new shape descriptor - shape context. The shape context at a point captures the distribution over relative positions of other shape points and thus summarizes global shape.
 
+<p align="center">
 ![alt text](summaryImg/shape_context.jpg) <br><br>
 ![alt text](summaryImg/shape_context_A.jpg)
+</p>
 
 6. Compare the log-polar histograms using Pearson's chi-squared test or cosine distance.
 7. Find the numeral with minimum distance for each bounding box in base image. Sum up the cost values of each bounding box to find Sigma( Φ).
@@ -78,7 +80,7 @@ The drawbacks of the above algorithm are:
 
 **Rotation Classification**
 
-<br>Rotation is a common problem in scanned images. The document can be rotated 90° or more, while being scanned.
+Rotation is a common problem in scanned images. The document can be rotated 90° or more, while being scanned.
 
 You can use the above skew correction code to find Θ and rotate. The only drawback is, rotation of 90+Θ could be detected as 90-Θ, and -90-Θ as -90+Θ. Hence, the image can get flipped, once you rotate!
 
