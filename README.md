@@ -1,4 +1,4 @@
-# Computer-Vision-Math-Magic-vs-AI
+# Computer Vision Techniques as Precursor of AI
 ## Skew Correction, Text Inversion, Rotation Classification, Homography & Object Search with Applied Math
 
 
@@ -22,22 +22,22 @@ Another numerical way to address the problem is to make use of the font shape, s
 4. Randomly sample N points from edge elements of each character shape.
 5. Construct a new shape descriptor - shape context. The shape context at a point captures the distribution over relative positions of other shape points and thus summarizes global shape.
 
-![alt text](summaryImg/shape_context.jpg)
+![alt text](summaryImg/shape_context.jpg) <br><br>
 ![alt text](summaryImg/shape_context_A.jpg)
 
 6. Compare the log-polar histograms using Pearson's chi-squared test or cosine distance.
 7. Find the numeral with minimum distance for each bounding box in base image. Sum up the cost values of each bounding box to find Sigma( Φ).
-![alt text](summaryImg/text_compare.jpg)
-
+<br><br>![alt text](summaryImg/text_compare.jpg)
+<br>
 7. Invert cropped image from step (b) and do steps {d}-{h} to compute Sigma( Φ'). Compare the Sigma values to know text inversion.
 
-![alt text](summaryImg/invertedText_output.jpg)
+<br>![alt text](summaryImg/invertedText_output.jpg)
 
 **EAST (An Efficient and Accurate Scene Text Detector)**
 
 The textual content inside an image can be localized using EAST algorithm.
 
-![alt text](summaryImg/east.gif)
+<br>![alt text](summaryImg/east.gif)
 
 Here again, we can use a math-hack to localize text in an image, instead of using AI-based EAST algorithm. You can find consecutive local minima of y-projections of pixels to find consecutive trough that corresponds to line separation in an image. Once a line is found, you can run method 2, starting from step (b).
 
@@ -57,7 +57,7 @@ Most of the scanned documents are skewed. Thus, it is required to de-skew the im
 The drawbacks of the above algorithm are:
 <br> a. Iterative computation increases time complexity.
 <br> b. Potential error of 0.5 degrees due to step size.
-Mostly, scanned document would be of form format or tabular data containing lines or point spread of lines (lines can be disjoint in scanned image, due to lack of scan or print quality). Hence, the question boils down to "whether we can compute the line and Θ, given a point spread as input?"
+<br>Mostly, scanned document would be of form format or tabular data containing lines or point spread of lines (lines can be disjoint in scanned image, due to lack of scan or print quality). Hence, the question boils down to "whether we can compute the line and Θ, given a point spread as input?"
 
 **Method 2: Hough Transform Peak**
 
@@ -68,23 +68,23 @@ Mostly, scanned document would be of form format or tabular data containing line
 5. Calculate median of slopes, Θ'
 6. Rotate the image by Θ'
 
-![alt text](summaryImg/hough.jpg)
+<br>![alt text](summaryImg/hough.jpg)
 ![alt text](summaryImg/hough_detected.jpg)
 ![alt text](summaryImg/paul_receipt_skew.jpg)
 
 *Skew Correction Functional Workflow*
 
-![alt text](summaryImg/hough_peak.jpg)
+<br>![alt text](summaryImg/hough_peak.jpg)
 
 **Rotation Classification**
 
-Rotation is a common problem in scanned images. The document can be rotated 90° or more, while being scanned.
+<br>Rotation is a common problem in scanned images. The document can be rotated 90° or more, while being scanned.
 
 You can use the above skew correction code to find Θ and rotate. The only drawback is, rotation of 90+Θ could be detected as 90-Θ, and -90-Θ as -90+Θ. Hence, the image can get flipped, once you rotate!
 
 **Homography**
 
-Let's say you want to find an object (template) inside a bigger image with multiple objects. We can use Object detection models like SSD or YOLO with annotated Query Images to train different classes of objects to be found. But how do we use simple math to find and locate an object in a bigger image? 
+Let's say you want to find an object (template) inside a bigger image with multiple objects. We can use Object detection models like SSD or YOLO with annotated Query Images to train different classes of objects to be found. But how do we use simple math to find and locate an object in a bigger image? <br>
 
 We can use homography to find point correspondences and transform the coordinates from one perspective to another. Homography is a transformation ( 3×3 matrix ) that maps the points in one image to the corresponding points in the other image.
 
@@ -99,7 +99,7 @@ These are the steps you can follow.
 7. Extract the matched keypoints from both images.
 8. Find homography matrix and do perspective transform
 
-![alt text](summaryImg/homography_box.jpg)
+![alt text](summaryImg/homography_box.jpg)<br>
 ![alt text](summaryImg/homography_custom.jpg)
 
 **Object Search**
@@ -131,7 +131,7 @@ Please note the correlation values will not be  0, even for same images, as rand
 ![alt text](summaryImg/turning_compare.jpg)
 
 **References**
-
-<br> [1] *Inversion Detection in Text Document Images. Hamid Pilevar, A. G. Ramakrishnan, Medical Intelligence and Language Engineering Lab, Department of Electrical Engineering, Indian Institute of Science, Bangalore (JCIS 2006)*
-<br> [2] *Shape Context: A new descriptor for shape matching and object recognition. Serge Belongie, Jitendra Malik and Jan Puzicha. Department of Electrical Engineering and Computer Sciences, University of California at Berkeley (NIPS 2000)*
+<br>
+<br> [1] *Inversion Detection in Text Document Images. Hamid Pilevar, A. G. Ramakrishnan, Medical Intelligence and Language Engineering Lab, Department of Electrical Engineering, Indian Institute of Science, Bangalore (JCIS 2006)*<br>
+<br> [2] *Shape Context: A new descriptor for shape matching and object recognition. Serge Belongie, Jitendra Malik and Jan Puzicha. Department of Electrical Engineering and Computer Sciences, University of California at Berkeley (NIPS 2000)*<br>
 <br> [3] *Shape Matching and Object Recognition Using Shape Contexts. Serge Belongie, Jitendra Malik and Jan Puzicha. Computer Science Division, University of California at Berkeley (PAMI 2002)*
