@@ -72,7 +72,7 @@ The drawbacks of the above algorithm are:
 ![alt text](summaryImg/hough_detected.jpg)
 ![alt text](summaryImg/paul_receipt_skew.jpg)
 
-*Skew Correction Functional Workflow*
+                             *Skew Correction Functional Workflow*
 
 <br>![alt text](summaryImg/hough_peak.jpg)
 
