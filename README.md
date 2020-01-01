@@ -10,7 +10,7 @@ Lets see how to mathematically formulate inversion.
 **Method 1: Double Peaks**
 1. Project the pixels on y-axis. Each line would result in a peak, in fact 2 peaks due to the shape of English character.
 2. Convolve with a Gaussian filter to smooth the noise.
-3. Calculate the fraction of peaks (lines) with sub-peaks on the right side.
+3. Calculate the fraction of peaks (lines) with sub-peaks on the right side.<br>
 
 This will not work if the text is in CAPITAL letters or in some other language, as the "double peak logic" would likely falter.<br>
 Another numerical way to address the problem is to make use of the font shape, such as 'Water Fill Technique' or to mathematically represent the character shape, as given below. We can describe any shape mathematically using shape context and log-bin histograms. 
@@ -72,7 +72,10 @@ The drawbacks of the above algorithm are:<br>
 ![alt text](summaryImg/hough_detected.jpg)
 ![alt text](summaryImg/paul_receipt_skew.jpg)
 
-                             *Skew Correction Functional Workflow*
+
+<p style="float:center;">
+*Skew Correction Functional Workflow*
+</p>
 
 <br>![alt text](summaryImg/hough_peak.jpg)
 
