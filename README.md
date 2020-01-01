@@ -1,5 +1,5 @@
 # Computer-Vision-Math-Magic-vs-AI
-Skew Correction, Text Inversion, Rotation Classification, Homography & Object Search with Applied Math
+## Skew Correction, Text Inversion, Rotation Classification, Homography & Object Search with Applied Math
 
 
 **Text Inversion**
@@ -9,35 +9,33 @@ Lets see how to mathematically formulate inversion.
 
 **Method 1: Double Peaks**
 1. Project the pixels on y-axis. Each line would result in a peak, in fact 2 peaks due to the shape of English character.
-
 2. Convolve with a Gaussian filter to smooth the noise.
 3. Calculate the fraction of peaks (lines) with sub-peaks on the right side.
 
 This will not work if the text is in CAPITAL letters or in some other language, as the "double peak logic" would likely falter.
-Another numerical way to address the problem is to make use of the font shape, such as 'Water Fill Technique' or to mathematically represent the character shape, as given below. We can describe any shape mathematically using shape context and log-bin histograms. Such attempts demonstrate "mathematical ingenuity" as an efficient solution to variety of problems.
+Another numerical way to address the problem is to make use of the font shape, such as 'Water Fill Technique' or to mathematically represent the character shape, as given below. We can describe any shape mathematically using shape context and log-bin histograms. 
 
 **Method 2: Shape Contexts using Log-Bin Histograms**
-a. Find text bounding boxes from images using EAST. {below}
-b. Crop image inside bounding box and apply Canny edge detection.
-c. Take a dummy image with alphanumeric as base input. Find bounding boxes around each character in base input and image from step (b). Do steps {d}-{h} to find best correspondence between character pairs.
-d. Randomly sample N points from edge elements of each character shape.
-e. Construct a new shape descriptor - shape context. The shape context at a point captures the distribution over relative positions of other shape points and thus summarizes global shape.
+1. Find text bounding boxes from images using EAST. {below}
+2. Crop image inside bounding box and apply Canny edge detection.
+3. Take a dummy image with alphanumeric as base input. Find bounding boxes around each character in base input and image from step (b). Do steps {d}-{h} to find best correspondence between character pairs.
+4. Randomly sample N points from edge elements of each character shape.
+5. Construct a new shape descriptor - shape context. The shape context at a point captures the distribution over relative positions of other shape points and thus summarizes global shape.
 
 ![alt text](summaryImg/shape_context.jpg)
 ![alt text](summaryImg/shape_context_A.jpg)
 
-f. Compare the log-polar histograms using Pearson's chi-squared test or cosine distance.
-h. Find the numeral with minimum distance for each bounding box in base image. Sum up the cost values of each bounding box to find Sigma( Φ).
+6. Compare the log-polar histograms using Pearson's chi-squared test or cosine distance.
+7. Find the numeral with minimum distance for each bounding box in base image. Sum up the cost values of each bounding box to find Sigma( Φ).
 ![alt text](summaryImg/text_compare.jpg)
 
-i. Invert cropped image from step (b) and do steps {d}-{h} to compute Sigma( Φ'). Compare the Sigma values to know text inversion.
+7. Invert cropped image from step (b) and do steps {d}-{h} to compute Sigma( Φ'). Compare the Sigma values to know text inversion.
 
 ![alt text](summaryImg/invertedText_output.jpg)
 
 **EAST (An Efficient and Accurate Scene Text Detector)**
 
 The textual content inside an image can be localized using EAST algorithm.
-
 
 ![alt text](summaryImg/east.gif)
 
@@ -57,8 +55,8 @@ Most of the scanned documents are skewed. Thus, it is required to de-skew the im
 4. Step the rotation angle by 0.5 angles and repeat steps 2, 3
 5. Find the angle Θ with maximum pixel incidence density.
 The drawbacks of the above algorithm are:
-a. Iterative computation increases time complexity.
-b. Potential error of 0.5 degrees due to step size.
+<br> a. Iterative computation increases time complexity.
+<br> b. Potential error of 0.5 degrees due to step size.
 Mostly, scanned document would be of form format or tabular data containing lines or point spread of lines (lines can be disjoint in scanned image, due to lack of scan or print quality). Hence, the question boils down to "whether we can compute the line and Θ, given a point spread as input?"
 
 **Method 2: Hough Transform Peak**
@@ -74,14 +72,17 @@ Mostly, scanned document would be of form format or tabular data containing line
 ![alt text](summaryImg/hough_detected.jpg)
 ![alt text](summaryImg/paul_receipt_skew.jpg)
 
+*Skew Correction Functional Workflow*
+
 ![alt text](summaryImg/hough_peak.jpg)
 
-Rotation Classification
+**Rotation Classification**
+
 Rotation is a common problem in scanned images. The document can be rotated 90° or more, while being scanned.
 
 You can use the above skew correction code to find Θ and rotate. The only drawback is, rotation of 90+Θ could be detected as 90-Θ, and -90-Θ as -90+Θ. Hence, the image can get flipped, once you rotate!
 
-Homography
+**Homography**
 
 Let's say you want to find an object (template) inside a bigger image with multiple objects. We can use Object detection models like SSD or YOLO with annotated Query Images to train different classes of objects to be found. But how do we use simple math to find and locate an object in a bigger image? 
 
@@ -119,7 +120,6 @@ Above equation conceptually formulates correlation as the  similarity in deviati
 
 *Input Images and Compare Value*
 
-
 ![alt text](summaryImg/object_images.jpg)
 ![alt text](summaryImg/obj_search_output.jpg)
 
@@ -132,6 +132,6 @@ Please note the correlation values will not be  0, even for same images, as rand
 
 **References**
 
-[1] Inversion Detection in Text Document Images. Hamid Pilevar, A. G. Ramakrishnan, Medical Intelligence and Language Engineering Lab, Department of Electrical Engineering, Indian Institute of Science, Bangalore (JCIS 2006)
-[2] Shape Context: A new descriptor for shape matching and object recognition. Serge Belongie, Jitendra Malik and Jan Puzicha. Department of Electrical Engineering and Computer Sciences, University of California at Berkeley (NIPS 2000)
-[3] Shape Matching and Object Recognition Using Shape Contexts. Serge Belongie, Jitendra Malik and Jan Puzicha. Computer Science Division, University of California at Berkeley (PAMI 2002)
+<br> [1] *Inversion Detection in Text Document Images. Hamid Pilevar, A. G. Ramakrishnan, Medical Intelligence and Language Engineering Lab, Department of Electrical Engineering, Indian Institute of Science, Bangalore (JCIS 2006)*
+<br> [2] *Shape Context: A new descriptor for shape matching and object recognition. Serge Belongie, Jitendra Malik and Jan Puzicha. Department of Electrical Engineering and Computer Sciences, University of California at Berkeley (NIPS 2000)*
+<br> [3] *Shape Matching and Object Recognition Using Shape Contexts. Serge Belongie, Jitendra Malik and Jan Puzicha. Computer Science Division, University of California at Berkeley (PAMI 2002)*
